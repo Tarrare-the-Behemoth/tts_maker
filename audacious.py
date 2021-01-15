@@ -1,18 +1,9 @@
 '''
-OPEN aeiou SOUNDS THE USER PUT IN THE DIR
-OPEN CONSONANT SOUNDS OR IMPORT DEFAULTS (bcdfghjklmnpqrstvwxy?z)
-INPUT TEXT FROM USER
-STICK SOUNDS TOGETHER SOMEHOW
-#SOMETHING IDK
-#EBIN PROFIT
-OUTPUT AUDIO SPEECH AS WAV
+if i'm bothered, I will differentiate between stressed and non-stressed vowels by taking a word and seeing if it contains: [CONSONANT][VOWEL][CONSONANT][VOWEL]
+but to do that I will have to remake it 
 
-
- USE  ORD AND .LOWER
- EITHER USE PYDUB(SHORT BUT REMAKE) OR WAVE(LONG BUT KEEP SAME)
-PYDUB:
-x_version = AudioSegment.from_file("y.x", "x")
-wave = AudioSegment.from_file(i+"."+format, format)
+if i'm not retarded I will add in spacebar compatibility (which it should already have) probably by checking the text for them, ignoring them when I ord(), 
+then replace with no noise for 0.5 (A BREATH WOULD BE BETTER)
 '''
 from pydub import AudioSegment
 waves = []
