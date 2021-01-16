@@ -1,6 +1,7 @@
 # tts_maker
 Recreate the voice of any person (maybe)
-[Instructions:]
+
+# Instructions:
 
 Step 1:
 Record your target, e.g Yourself, until you are fairly confident they have said every sound in the alphabet (and a breath)  
