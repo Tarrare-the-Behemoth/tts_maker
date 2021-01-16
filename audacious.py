@@ -1,32 +1,47 @@
 '''
 if i'm bothered, I will differentiate between stressed and non-stressed vowels by taking a word and seeing if it contains: [CONSONANT][VOWEL][CONSONANT][VOWEL]
-but to do that I will have to remake it 
-
-if i'm not retarded I will add in spacebar compatibility (which it should already have) probably by checking the text for them, ignoring them when I ord(), 
-then replace with no noise for 0.5 (A BREATH WOULD BE BETTER)
+but to do that I will have to remake it___   
+if sentence[i] contains any consonant:    |
+  if sentence[i][c+1] == any vowel:       |
+    if sentence[i][c+2] == any consonant: |<------long, inefficient, stupid
+      if sentence[i][c+3] == any vowel:   |
+        WOOWWWWWW!!!! YAYYYY!!!___________|
 '''
 from pydub import AudioSegment
-waves = []
-caca = [] 
-doodoo = []
-comb = None
-
-def initLetters(text, format1):
-  for i in "abcdefghijklmnopqrstuvwxyz": #get files and puts in waves
-    waves.append(AudioSegment.from_file(i+"."+format1, format1))
-  for i in text:
+def initLetters(text, audioFormat):
+  soundAlphabet = []
+  textNumbers = [] 
+  textSounds = []
+  combiner = None
+  
+  for i in "abcdefghijklmnopqrstuvwxyz": # GET FILES IN ALPHABETICAL ORDER > soundAlphabet
+    soundAlphabet.append(AudioSegment.from_file(i+"."+audioFormat, audioFormat))
+    
+  for i in text: # TRANSLATES THE USER'S TEXT TO A0Z25 > textNumbers   
     letter = ord(i)-65
-    caca.append(letter)
-  for i in caca:#FOR EVERY LETTER IN OUR TEXT (represented by a number) in caca, we are going to take the sound bytes for that letter (from waves list) and put it in doodoo (hehe xd)
-    doodoo.append(waves[i])
-  for i in doodoo: # FOR EVERY WAVE FILE IN OUR ORDERED LIST, we add it up to make one big file and export it
-    comb = comb+i
-  comb.export("output."+format1, format=format1)   
-
+    textNumbers.append(letter) #USE textNumbers TO INDEX THE SOUND ALPHABET soundAlphabet > textSounds  
+    
+  for i in textNumbers:
+    if i == -33:
+      textSounds.append(AudioSegment.from_file("space."+audioFormat, audioFormat))
+      continue
+    elif i == -19:
+      textSounds.append(AudioSegment.from_file("period."+audioFormat, audioFormat))
+      continue
+    else:
+      textSounds.append(soundAlphabet[i])
+      
+  for i in textSounds: # Add up all the sound files to make one big sound file named 'output.[format]'
+    combiner = combiner+i
+    
+  combiner.export("output."+audioFormat, format=audioFormat)  
+  
 def menu(): 
-  print("WELCOME TO MY PROGRAM THAT ISN'T CREEPY, I hope you're having a good day.\nName every file you put in the directory in the format: [letter_in_lowercase].[format], for example: a.wav")
-  format = input("What audio format do you want to use?\n")
+  print("WELCOME TO MY PROGRAM THAT ISN'T CREEPY, I hope you're having a good day.\nName every file you put in the directory in the format: [letter_in_lowercase].[format], for example: 'a.wav'")
+  print("P.S: The period/full stop file should be named 'period.[format]' and will ideally be a breath. The space file should be named 'space.[format]' and will ideally be half a second of no noise. This only supports letters A-Z and characters space: ' ' and periods: '.'")
+
+  audioFormat = input("What audio format do you want to use?\n") #OPTIONS: wav, mp4, mp3, ogg, flv, wma, "anything ffmpeg supports" - PyDub Team.
   text = input("Enter the text you want them to say:\n")
-  text = text.upper()
-  initLetters(text, format)  
+  text = text.upper()     #TEXT CONVERTED TO ALL CAPS SO I CAN ORD THEN -65 TO GET ALPHABET
+  initLetters(text, audioFormat)  
     
